@@ -82,6 +82,13 @@ st.markdown("""
         font-size: 3rem;
     }
 
+    .header-panel-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 110px;
+    }
+
     .header-panel {
         background: rgba(255, 255, 255, 0.06);
         backdrop-filter: blur(14px);
