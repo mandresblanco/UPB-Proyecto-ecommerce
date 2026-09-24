@@ -24,8 +24,8 @@ st.markdown("""
         color: #F5F7FF !important;
     }
     
-    .grid-categorias div[data-testid="stVerticalBlockBorderWrapper"] div[data-testid="stVerticalBlock"] {
-    align-items: center !important;
+    div[data-testid="stVerticalBlock"]:has(> div.marca-categorias) div[data-testid="stVerticalBlockBorderWrapper"] div[data-testid="stVerticalBlock"] {
+        align-items: center !important;
     }
     
     div[data-testid="stVerticalBlockBorderWrapper"] {
@@ -261,20 +261,21 @@ st.subheader("Categoría del producto")
 
 st.success(f"🛒 Producto seleccionado: **{NOMBRES_LEGIBLES[st.session_state['categoria_seleccionada']]}**")
 
-st.markdown('<div class="grid-categorias">', unsafe_allow_html=True)
-
-cols_categorias = st.columns(4)
-for i, cat in enumerate(CATEGORIAS):
-    with cols_categorias[i % 4]:
-        seleccionada = (st.session_state['categoria_seleccionada'] == cat)
-        with st.container(border=True):
-            if IMAGENES_CATEGORIA[cat]:
-                st.image(IMAGENES_CATEGORIA[cat], width=90)
-            st.caption(NOMBRES_LEGIBLES[cat])
-            etiqueta_boton = "✅ Seleccionado" if seleccionada else "Comprar"
-            if st.button(etiqueta_boton, key=f"cat_{i}"):
-                st.session_state['categoria_seleccionada'] = cat
-                st.rerun()
+contenedor_categorias = st.container()
+with contenedor_categorias:
+    st.markdown('<div class="marca-categorias"></div>', unsafe_allow_html=True)
+    cols_categorias = st.columns(4)
+    for i, cat in enumerate(CATEGORIAS):
+        with cols_categorias[i % 4]:
+            seleccionada = (st.session_state['categoria_seleccionada'] == cat)
+            with st.container(border=True):
+                if IMAGENES_CATEGORIA[cat]:
+                    st.image(IMAGENES_CATEGORIA[cat], width=90)
+                st.caption(NOMBRES_LEGIBLES[cat])
+                etiqueta_boton = "✅ Seleccionado" if seleccionada else "Comprar"
+                if st.button(etiqueta_boton, key=f"cat_{i}"):
+                    st.session_state['categoria_seleccionada'] = cat
+                    st.rerun()
 
 principal_category_by_price = st.session_state['categoria_seleccionada']
 st.markdown('</div>', unsafe_allow_html=True)
