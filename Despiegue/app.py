@@ -23,11 +23,7 @@ st.markdown("""
     h1, h2, h3, label, p, span, .stMarkdown {
         color: #F5F7FF !important;
     }
-    
-    div[data-testid="stVerticalBlock"]:has(> div.marca-categorias) div[data-testid="stVerticalBlockBorderWrapper"] div[data-testid="stVerticalBlock"] {
-        align-items: center !important;
-    }
-    
+
     div[data-testid="stVerticalBlockBorderWrapper"] {
         background: rgba(255, 255, 255, 0.06) !important;
         backdrop-filter: blur(14px);
@@ -36,9 +32,7 @@ st.markdown("""
         border-radius: 16px !important;
         box-shadow: 0 0 16px rgba(47, 99, 246, 0.18);
     }
-   
 
-    /* Centrado robusto: contenedor Y elemento img */
     [data-testid="stImage"] {
         display: flex !important;
         justify-content: center !important;
@@ -100,12 +94,11 @@ st.markdown("""
         justify-content: center;
         height: 110px;
     }
-
     .header-panel img {
-    max-height: 90px;
-    background: #FFFFFF;
-    border-radius: 10px;
-    padding: 6px 12px;
+        max-height: 90px;
+        background: #FFFFFF;
+        border-radius: 10px;
+        padding: 6px 12px;
     }
     .header-panel h1 {
         margin: 0 !important;
@@ -127,8 +120,13 @@ st.markdown("""
         z-index: -1;
     }
 
-    .st-key-categorias div[data-testid="stVerticalBlockBorderWrapper"] div[data-testid="stVerticalBlock"] {
-        align-items: center !important;
+    /* Centrado real de las tarjetas de categoría: se fuerza a que cada
+       elemento (imagen, texto, botón) se encoja a su tamaño y se centre
+       con márgenes automáticos, en vez de ocupar el 100% del ancho */
+    .st-key-categorias div[data-testid="stVerticalBlockBorderWrapper"] div[data-testid="element-container"] {
+        width: fit-content !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
     </style>
 
@@ -278,9 +276,6 @@ with st.container(key="categorias"):
                 if st.button(etiqueta_boton, key=f"cat_{i}"):
                     st.session_state['categoria_seleccionada'] = cat
                     st.rerun()
-
-principal_category_by_price = st.session_state['categoria_seleccionada']
-st.markdown('</div>', unsafe_allow_html=True)
 
 principal_category_by_price = st.session_state['categoria_seleccionada']
 
