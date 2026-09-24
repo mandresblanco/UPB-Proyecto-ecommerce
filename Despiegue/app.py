@@ -123,7 +123,10 @@ st.markdown("""
     /* Centrado real de las tarjetas de categoría: se fuerza a que cada
        elemento (imagen, texto, botón) se encoja a su tamaño y se centre
        con márgenes automáticos, en vez de ocupar el 100% del ancho */
-    .st-key-categorias div[width="90"] {
+
+       
+    .st-key-categorias div[data-testid="stElementContainer"]:has(div[data-testid="stImage"]) {
+        width: fit-content !important;
         margin-left: auto !important;
         margin-right: auto !important;
     }
