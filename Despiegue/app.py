@@ -44,9 +44,9 @@ st.markdown("""
         margin: 0 auto !important;
         display: block !important;
         border-radius: 12px;
-        /* Funde el fondo blanco de la imagen con el vidrio oscuro de la tarjeta */
-        mix-blend-mode: multiply;
-        filter: contrast(1.05);
+        background: #FFFFFF;
+        padding: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
     }
 
     [data-testid="stCaptionContainer"] {
