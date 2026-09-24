@@ -234,7 +234,7 @@ logo_b64 = imagen_a_base64(BASE_DIR / "logo.png")
 col_logo, col_titulo = st.columns([1.3, 4])
 with col_logo:
     st.markdown(f"""
-        <div class="header-panel">
+        <div class="header-panel-logo">
             <img src="data:image/png;base64,{logo_b64}">
         </div>
     """, unsafe_allow_html=True)
