@@ -95,10 +95,11 @@ st.markdown("""
         height: 110px;
     }
     .header-panel img {
-        max-height: 90px;
-        background: #FFFFFF;
-        border-radius: 10px;
-        padding: 6px 12px;
+        max-height: 60px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 14px;
+        padding: 12px 24px;
+        box-shadow: 0 0 24px rgba(255, 255, 255, 0.15), 0 4px 12px rgba(0, 0, 0, 0.3);
     }
     .header-panel h1 {
         margin: 0 !important;
@@ -124,7 +125,7 @@ st.markdown("""
        elemento (imagen, texto, botón) se encoja a su tamaño y se centre
        con márgenes automáticos, en vez de ocupar el 100% del ancho */
 
-       
+
     .st-key-categorias div[data-testid="stElementContainer"]:has(div[data-testid="stImage"]) {
         width: fit-content !important;
         margin-left: auto !important;
@@ -230,7 +231,7 @@ def imagen_a_base64(ruta):
 
 logo_b64 = imagen_a_base64(BASE_DIR / "logo.png")
 
-col_logo, col_titulo = st.columns([1, 4])
+col_logo, col_titulo = st.columns([1.3, 4])
 with col_logo:
     st.markdown(f"""
         <div class="header-panel">
