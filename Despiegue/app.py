@@ -101,7 +101,7 @@ st.markdown("""
         justify-content: center;
         height: 110px;
     }
-    .header-panel img {
+    .header-panel-logo img {
         height: 90px;
         width: 90px;
         object-fit: cover;
