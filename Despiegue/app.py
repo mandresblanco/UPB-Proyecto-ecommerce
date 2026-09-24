@@ -128,6 +128,23 @@ def cargar_modelo():
         modelo, columnas = pickle.load(archivo)
     return modelo, columnas
 
+##Clusrering
+@st.cache_resource
+def cargar_cluster():
+    with open('cluster_pipe.pkl', 'rb') as archivo:
+        return pickle.load(archivo)   # dict: pipeline, columnas, nombres_clusters
+
+art_cluster = cargar_cluster()
+
+DESCRIPCIONES_CLUSTER = {
+    'Local y ligero': 'Paquete pequeño y cercano, típicamente dentro del mismo estado',
+    'Voluminoso y pesado': 'Paquete grande o pesado, con distancia intermedia.',
+    'Larga distancia': 'Envío a otro estado, con el mayor costo de flete.',
+}
+
+#############
+
+
 modelo, columnas = cargar_modelo()
 
 @st.cache_data
@@ -372,8 +389,34 @@ if st.button("Predecir"):
     prediccion = modelo.predict(X_input)[0]
     dias_estimados = math.ceil(prediccion) + 3
 
+######
+    fila_cluster = pd.DataFrame([{
+    'distancia_km': distancia_km,
+    'customer_state_SP': int(customer_state == 'SP'),
+    'total_freight': total_freight,
+    'total_volume_cm3': total_volume_cm3,
+    'total_weight_g': total_weight_g,
+    }])[art_cluster['columnas']]
+
+    cluster_id = int(art_cluster['pipeline'].predict(fila_cluster)[0])
+    nombre_cluster = art_cluster['nombres_clusters'][cluster_id]
+
+
+    ##################
     st.divider()
-    st.metric("Tu paquete llegará en menos de:", f"{dias_estimados} días")
+    col_dias, col_cluster = st.columns(2)
+
+    with col_dias:
+        st.metric("Tu paquete llegará en menos de:", f"{dias_estimados} días")
+
+    with col_cluster:
+        st.markdown(f"""
+            <div style="font-size:0.875rem; color:#F5F7FF;">Tipo de envío:</div>
+            <div style="color:#4CC9F0; font-size:2rem; font-weight:600; line-height:1.3;">
+                {nombre_cluster}
+            </div>
+        """, unsafe_allow_html=True)
+        st.caption(DESCRIPCIONES_CLUSTER.get(nombre_cluster, ''))
 
     with st.expander("Ver datos enviados al modelo"):
         st.dataframe(X_input)
