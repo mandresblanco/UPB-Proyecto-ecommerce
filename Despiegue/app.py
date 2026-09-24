@@ -390,5 +390,44 @@ if st.button("Predecir"):
         df_entrada,
         columns=['customer_state', 'principal_category_by_price', 'principal_seller_state_by_price']
     )
-    X_input = df_entrada_encoded.reindex(columns=columnas,
-    
+    X_input = df_entrada_encoded.reindex(columns=columnas, fill_value=0)
+
+    prediccion = modelo.predict(X_input)[0]
+    dias_estimados = math.ceil(prediccion) + 3
+
+    # ---------------------------
+    # Clustering
+    # ---------------------------
+    fila_cluster = pd.DataFrame([{
+        'distancia_km': distancia_km,
+        'customer_state_SP': int(customer_state == 'SP'),
+        'total_freight': total_freight,
+        'total_volume_cm3': total_volume_cm3,
+        'total_weight_g': total_weight_g,
+    }])[art_cluster['columnas']]
+
+    cluster_id = int(art_cluster['pipeline'].predict(fila_cluster)[0])
+    nombre_cluster = art_cluster['nombres_clusters'][cluster_id]
+
+    # ---------------------------
+    # Resultados
+    # ---------------------------
+    st.divider()
+    col_dias, col_cluster = st.columns(2)
+
+    with col_dias:
+        st.metric("Tu paquete llegará en menos de:", f"{dias_estimados} días")
+
+    with col_cluster:
+        st.markdown(f"""
+            <div style="font-size:0.875rem; color:#F5F7FF;">Tipo de envío:</div>
+            <div style="color:#4CC9F0; font-size:2rem; font-weight:600; line-height:1.3;">
+                {nombre_cluster}
+            </div>
+        """, unsafe_allow_html=True)
+        st.caption(DESCRIPCIONES_CLUSTER.get(nombre_cluster, ''))
+
+    with st.expander("Ver datos enviados al modelo"):
+        st.dataframe(X_input)
+        st.write("Datos enviados al clustering:")
+        st.dataframe(fila_cluster)
