@@ -126,6 +126,10 @@ st.markdown("""
         background: radial-gradient(circle, rgba(255, 105, 180, 0.08) 0%, transparent 70%);
         z-index: -1;
     }
+
+    .st-key-categorias div[data-testid="stVerticalBlockBorderWrapper"] div[data-testid="stVerticalBlock"] {
+        align-items: center !important;
+    }
     </style>
 
     <div class="glow-corner-1"></div>
@@ -261,9 +265,7 @@ st.subheader("Categoría del producto")
 
 st.success(f"🛒 Producto seleccionado: **{NOMBRES_LEGIBLES[st.session_state['categoria_seleccionada']]}**")
 
-contenedor_categorias = st.container()
-with contenedor_categorias:
-    st.markdown('<div class="marca-categorias"></div>', unsafe_allow_html=True)
+with st.container(key="categorias"):
     cols_categorias = st.columns(4)
     for i, cat in enumerate(CATEGORIAS):
         with cols_categorias[i % 4]:
