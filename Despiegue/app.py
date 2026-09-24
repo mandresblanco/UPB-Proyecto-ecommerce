@@ -95,11 +95,11 @@ st.markdown("""
         height: 110px;
     }
     .header-panel img {
-        max-height: 60px;
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 14px;
-        padding: 12px 24px;
-        box-shadow: 0 0 24px rgba(255, 255, 255, 0.15), 0 4px 12px rgba(0, 0, 0, 0.3);
+        height: 90px;
+        width: 90px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(76, 201, 240, 0.4);
     }
     .header-panel h1 {
         margin: 0 !important;
