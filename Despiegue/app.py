@@ -23,7 +23,11 @@ st.markdown("""
     h1, h2, h3, label, p, span, .stMarkdown {
         color: #F5F7FF !important;
     }
-
+    
+    .grid-categorias div[data-testid="stVerticalBlockBorderWrapper"] div[data-testid="stVerticalBlock"] {
+    align-items: center !important;
+    }
+    
     div[data-testid="stVerticalBlockBorderWrapper"] {
         background: rgba(255, 255, 255, 0.06) !important;
         backdrop-filter: blur(14px);
@@ -32,6 +36,7 @@ st.markdown("""
         border-radius: 16px !important;
         box-shadow: 0 0 16px rgba(47, 99, 246, 0.18);
     }
+   
 
     /* Centrado robusto: contenedor Y elemento img */
     [data-testid="stImage"] {
@@ -95,8 +100,12 @@ st.markdown("""
         justify-content: center;
         height: 110px;
     }
+
     .header-panel img {
-        max-height: 90px;
+    max-height: 90px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 6px 12px;
     }
     .header-panel h1 {
         margin: 0 !important;
@@ -252,6 +261,8 @@ st.subheader("Categoría del producto")
 
 st.success(f"🛒 Producto seleccionado: **{NOMBRES_LEGIBLES[st.session_state['categoria_seleccionada']]}**")
 
+st.markdown('<div class="grid-categorias">', unsafe_allow_html=True)
+
 cols_categorias = st.columns(4)
 for i, cat in enumerate(CATEGORIAS):
     with cols_categorias[i % 4]:
@@ -264,6 +275,9 @@ for i, cat in enumerate(CATEGORIAS):
             if st.button(etiqueta_boton, key=f"cat_{i}"):
                 st.session_state['categoria_seleccionada'] = cat
                 st.rerun()
+
+principal_category_by_price = st.session_state['categoria_seleccionada']
+st.markdown('</div>', unsafe_allow_html=True)
 
 principal_category_by_price = st.session_state['categoria_seleccionada']
 
