@@ -1,0 +1,3 @@
+Enlace del despliegue: https://upb-proyecto-ecommerce-kbjxkszgwhgdmdkyvtxfw9.streamlit.app/
+
+Enlace de GitHub del Proyecto: https://github.com/mandresblanco/UPB-Proyecto-ecommerce
