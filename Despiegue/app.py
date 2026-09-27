@@ -444,7 +444,6 @@ if st.button("Predecir"):
 
     with col_dias:
         st.metric("Tu paquete llegará en menos de:", f"{dias_estimados} días")
-        st.metric("Tu paquete llegará en menos de:", f"{dias_estimados} días")
         st.caption("Nota: El 81.74% de los registros reales están por debajo de la predicción.")
 
     with col_cluster:
